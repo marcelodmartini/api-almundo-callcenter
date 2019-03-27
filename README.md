@@ -361,6 +361,10 @@ To check the status of the Call Center:
 $ curl -XGET -i -H "Accept: application/json" -H "Content-Type: application/json" http://ec2-18-191-146-2.us-east-2.compute.amazonaws.com:80/api/status
 ```
 
+Architecture
+----
+In the following [link](architecture.md) you will find the Architecture Documentation.
+
 License
 ----
 
