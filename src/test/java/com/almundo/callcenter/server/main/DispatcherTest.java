@@ -104,63 +104,6 @@ public class DispatcherTest {
     }
     
     
-    /** Test dispatch calls 20 calls concurrently to employees.
-	 *
-	 * @throws InterruptedException This method throws InterruptedException if interrupted while sleeping.
-	 *             
-	 */
-   @Test
-   public void testDispatchMoreTenCallsToEmployees() throws InterruptedException {
-   	
-   	logger.info("Start testDispatchMoreTenCallsToEmployees 20 Call concurrent concurrently");
-   	
-   	
-   	//I build the employee queue (PriorityBlockingQueue) indicating the number of operators, supevisors and directors
-   	PriorityBlockingQueue<Employee> employeeList = Employee.buildEmployeeList(Constants.AMOUNT_OPERATOR,Constants.AMOUNT_SUPERVISOR,Constants.AMOUNT_DIRECTOR);
-   	
-   	//I build the call list indicating the number of concurrent calls that the test will have, in addition when it lasts as 
-   	//minimum and maximum one call, and indicating that all calls will occur concurrently at the same time
-   	List<Call> calls = Call.buildListOfRandomCalls(Constants.CALL_AMOUNT_MAX,callConcurrent);
-       
-   	//Generated the Dispatcher (CallCenter) indicating the number of concurrent calls that the callCenter can attend at the same time (Constants.MAX_THREADS)
-   	Dispatcher dispatcher = new Dispatcher();
-   	//Charge to employees defined in the CallCenter
-   	dispatcher.initializeDispatcher(employeeList);
-       TimeUnit.SECONDS.sleep(1);
-       
-       //Run the CallCenter that is the Dispatcher thread
-       ThreadPoolExecutor executorService =  (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
-       executorService.execute(dispatcher);
-       TimeUnit.SECONDS.sleep(1);
-       
-       //Inoke all calls at the same time, called the callCenter, that is, each call thread will call the dispatchCall method of the Dispatcher
-       executeCallsInSameMoment(calls,dispatcher);
-       //Put the counter to zero because all calls are running concurrently
-       callConcurrent.countDown(); 
-       
-       //This blocks the thread until all tasks complete their execution or the specified timeout is reached:dispatcher
-       while(true){
-       	this.isTerminateAllCall = Boolean.TRUE;
-       	//Returns the approximate total number of tasks that have completed execution. Because the states of tasks and threads may change 
-       	//dynamically during computation, the returned value is only an approximation, but one that does not ever decrease across successive calls.
-	        if (Long.valueOf(dispatcher.getExecutorServiceCall().getCompletedTaskCount()).intValue() == Constants.CALL_AMOUNT_MAX){
-	        	//I'm going to do the second validation to check that there are no busy employees
-	        	dispatcher.getQueryEmployeesDTO().forEach(e -> {
-	        		if(e.getEmployeeStatus().equals(EmployeeStatus.BUSY)){
-	        			isTerminateAllCall = Boolean.FALSE;
-	        		}
-	        	});
-	        	if (isTerminateAllCall){
-	        		//If the number of concurrent calls is equal to the number of calls answered by each employee, the test ran correctly
-	        		assertEquals(Constants.CALL_AMOUNT_MAX,employeeList.stream().mapToInt(employee -> employee.getAttendedCalls().size()).sum());
-	        		logger.info("Finish testDispatchMoreTenCallsToEmployees concurrent concurrently");
-	        		return;
-	        	}
-	        }else{
-	        	TimeUnit.SECONDS.sleep(1);
-	        }
-       }
-   }
     
     
      /** Execute calls in same moment, through the ThreadPoolExecutor that the Dispatcher (Call Center) 
