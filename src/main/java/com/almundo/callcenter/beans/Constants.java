@@ -22,7 +22,11 @@ public class Constants {
     public static final int MAX_CALL_DURATION = 10;
     
     /** The Constant CALL_AMOUNT. */
-    public static final int CALL_AMOUNT = 15;
+    public static final int CALL_AMOUNT = 10;
+    
+    /** The Constant CALL_AMOUNT. */
+    public static final int CALL_AMOUNT_MAX = 20;
+    
     
     /** The Constant AMOUNT_OPERATOR. */
     public static final int AMOUNT_OPERATOR = 2; 
