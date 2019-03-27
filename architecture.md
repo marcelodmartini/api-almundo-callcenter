@@ -47,6 +47,7 @@ This class Attend to Call. This class attends the call that is, it is when an em
 
 ## Implements EKL:
 ![](images/EKL.jpg)
+
 In this way we could have json documents of calls with customers and employees to do searches of all kinds in large volume of data.
 
 You could think of a model to analyze the information as EKL:
