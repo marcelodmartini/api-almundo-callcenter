@@ -1,0 +1,6 @@
+com.almundo.callcenter.beans
+com.almundo.callcenter.controllers
+com.almundo.callcenter.dto
+com.almundo.callcenter.server.main
+com.almundo.callcenter.services.rest
+com.almundo.callcenter.util
