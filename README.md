@@ -1,7 +1,7 @@
 # API-ALMUNDO-CALLCENTER
 
 ### DOCUMENTATION:
-To access the documentation click here [Documentation](https://github.com/marcelodmartini/api-almundo-callcenter/tree/master/doc)
+To access the documentation click here [Documentation](https://github.com/marcelodmartini/api-almundo-callcenter/tree/master/doc/index.html)
 
 ### REQUIREMENTS:
 * Java 8 +
